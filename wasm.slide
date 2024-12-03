@@ -1,0 +1,229 @@
+# WebAssembly Profiling with pprof and wzprof
+11th December 2024
+Tags: go, pprof, wzprof, wasm
+Summary:
+
+Rajiv Ranjan Singh
+Naman Lakhwani
+
+: Hey hi everyone, I am excited to be here with you to talk about Go, WebAssembly, and how we can profile WebAssembly applications using pprof and wzprof.
+
+## Agenda
+
+- **What is Go?**
+- **Profiling with pprof**
+- **What is WebAssembly?**
+- **Profiling WebAssembly with wzprof**
+- **CPU and Memory profiling with wzprof**
+- **Generate profilers using wzprof**
+- **Visualize the memory profile**
+- **Visualize the cpu profile**
+- **Future of profiling WebAssembly with wzprof**
+
+: So this is the agend for today so we will cover all these topics in this talk.
+: We use Go every day, but we know that maybe not everyone does, so we'll start with a quick presentation on what Go is.
+: Then we'll jump into whats is WebAssembly and how it's used in Go applications.
+: Than we will talk about the main topic i.e. profiling and how we can use wzprof to profile WebAssembly applications.
+: Than we'll show you how to do CPU and Memory profiling with wzprof.
+: And finally, we'll talk about the future of profiling WebAssembly with wzprof and others.
+
+.image images/1.png 100 _
+
+## Speaker - Rajiv Ranjan Singh
+
+.link x.com/therajiv
+
+- Software Engineer at **A.P. Moller - Maersk**
+- Graduated in 2022 from **JSS Academy of Technical Education, Bengaluru, India**
+- **Google Summer of Code** 2024, 2023, and 2022 **LFX Mentorship** 2021, and **Google Season of Docs** 2021, and 2020
+- Previously worked with **Lummo, redBus, and Economize**
+
+: My name is Rajiv. I'm originally from Bihar, India, and currently work as a Software Engineer at A.P. Moller - Maersk in the Platform Engineering team in Bengaluru, India.
+: I graduated in 2022 from JSS Academy of Technical Education, Bengaluru, India, with a degree in Information Science and Engineering.
+: I started working with Go in 2020 when I was selected for Google Season of Docs with gRPC-Gateway.
+: I am an open-source enthusiast and have contributed to various open-source projects and programs like Google Season of Docs, LFX Mentorship, and Google Summer of Code.
+: Currently I am mentoring in GSoC 2024 with Jenkins.
+: I have previously worked with Lummo, redBus, and Economize.
+: I'm here today to talk about Go, WebAssembly, and how we can profile WebAssembly applications using pprof and wzprof.
+
+.image images/rajiv.jpg 250 _
+
+## Speaker - Naman Lakhwani
+
+.link x.com/lakhwani_jii
+
+- Software Engineer at **Allen Digital**
+
+: My name is Naman.
+
+.image images/naman.jpg 250 _
+
+## What is Go?
+
+- Multi-paradigm programming language
+- Memory-safe with automated memory management
+- Portable, compiles to a multitude of platforms
+- The go program is the entrypoint to the Go toolchain
+- It standardizes how developers build and maintain their applications
+- Provides tooling for building, profiling, testing, and managing dependencies
+
+: So let's start with What is Go?
+: Go is programing language developed by Google in 2007 and released in 2009.
+: Maintained by Google as an open-source project.
+: Go is a multi-paradigm programming language oriented towards the needs of developing secure, production-quality applications.
+: Go has a rich standard library, and advanced concurrency primitives built into the language like goroutines and channels.
+: And it is also very portable, it compiles to a multitude of targets, including WebAssembly via js and wasip1 ports.
+: The go program is the entrypoint of the Go toolchain.
+: It standardizes how developers build and maintain their applications.
+: It provides a lot of standard tooling for building, managing dependencies, formatting and testing the code, but also some more advanced constructs like a builtin CPU and memory profiler.
+: I'm mentioning all of this because when using Go, the entire toolchain is available when compiling to WebAssembly.
+
+.image images/2.png 200 _
+
+## Profiling with pprof
+
+- Performance profiling tool
+- pprof is a tool for visualization and analysis of profiling data
+- Package pprof serves via its HTTP server runtime profiling data in the format expected by the pprof visualization tool
+- Can be used to profile CPU, memory, block profiling, and goroutine profiling
+- WebAssembly eases cross-language profiling
+
+: so lets go get into profiling with pprof.
+: Performance profiling is a powerful tool for developers, with a history dating back to 1970 when the first tool, prof, was created for Unix.
+: Tools like Linux perf have provided profiling solutions since 2009, yet some modern programming languages still lack quality tools for gathering performance profiles.
+: Instrumenting observability is crucial, whether for investigating memory leaks or reducing an application’s computational footprint, and is often a significant part of the optimization process.
+: so basically, pprof is a tool for visualization and analysis of profiling data.
+: The package pprof serves via its HTTP server runtime profiling data in the format expected by the pprof visualization tool.
+: Block profiling is detects goroutines that are blocked on synchronization primitives like mutexes, helping identify concurrency issues.
+: Goroutine profiling is used to understand the state of the goroutines in the application.
+: We can use command line flags to enable the profiling and then use the pprof tool to visualize the data.
+: We can use the profiling endpoints provided by the pprof package and even we can use the pprof tool to collect the profile data.
+: Like, developing profilers that work across programming languages is challenging, but WebAssembly offers a solution.
+: WebAssembly, as a compilation target for languages like Go, Rust, Kotlin, and C, and with the ability to run server workloads via tools like wazero or wasmtime, provides a versatile platform.
+
+.image images/3.png 200 _
+
+## What is WebAssembly?
+
+- WebAssembly is a binary instruction format
+- Compact byte code as compilation target
+- Virtual machines do compilation at run time
+- Host functions for external communication
+- wasmimport and wasmexport for function calls
+
+: WebAssembly originally started as a browser technology.
+: It is bytecode that is executed by a virtual machine, also referred to as the host or runtime. Here is I am refering to stack-based virtual machines.
+: By default, WebAssembly is purely just memory and compute, but the runtime can expose functions for the guest module to import, those are called host functions.
+: In recent years, standalone runtimes emerged like wazero, wasmtime, wasmer, or wasmedge.
+: While these runtimes can be used as-is to run programs compiled to WebAssembly, they can also be embedded into existing applications.
+: For example, you can write a plugin in Rust, compile it to WebAssembly, and embed it in a Go application its just like a shared library.
+: WebAssembly runtimes also offer fairly strong sandboxing, so in some case it even allows running modules from untrusted sources.
+: However, for these capabilities to work, there needs to be common interfaces that all runtimes and compilers agree upon, and that's what the WebAssembly System Interface is.
+: wasmimport directive is used to  imports function to WebAssembly module and wasmexport directive is used to export function from WebAssembly module.
+
+.image images/4.png 300 _
+
+## Profiling WebAssembly with wzprof
+
+- Cross-language CPU and memory profiler for WebAssembly
+- Based on Wazero and the pprof data format
+- Exposes profiles on pprof http endpoints
+- Compatible with continuous-profiler systems supporting pprof profiles
+- Instruments all wasm function calls and captures the stack trace for all of them
+
+: Wzprof, a cross-language CPU and memory profiler for WebAssembly, laying the grounds for what could become a universal profiler.
+: Developed by dispatch.run.
+: Wazero is a the zero dependency WebAssembly runtime that can run WebAssembly modules on the server.
+: Wazero is written in Go, but it’s a WebAssembly runtime. It can run any WASM module, regardless of the programming language from which the module was built.
+: wzprof is based on pprof data format and its cross-language profile so we can bring bringing the benefits of pprof to languages like Rust etc.
+: Because we use expose the profiles on pprof http endpoints, any continuous-profiler system supporting pprof profiles is compatible with wzprof. You could for example use tools like Parca from Polar Signals or Pyroscope from Grafana Labs.
+: Maybe an interesting bit is that wzprof instruments all wasm function calls.
+: It captures the stack trace for all of them and basically counts stack traces, presenting that count in the pprof format for maximal integration with the rest of the pprof ecosystem.
+
+.image images/5.png 300 _
+
+## CPU and Memory profiling with wzprof
+
+- CPU profiling
+- Memory profiling
+
+: So lets talk about how wzprof does CPU and Memory profiling internally
+: So we have function listener facility in Wazero, which instruments the execution of WASM modules.
+: So Wzprof instruments the execution of WASM modules using the function listener facility in Wazero.
+: And yeah, It doesn’t matter which language the WASM module was originally compiled from; it’s just WebAssembly bytecode in the end.
+
+.image images/6.png 300 _
+
+## Generate profilers using wzprof
+
+- Write the code
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello wzprof!")
+}
+```
+
+- Build Go code to WebAssembly
+
+```shell
+GOOS=wasip1 GOARCH=wasm go build -o main.wasm main.go
+```
+
+- Create the memory, and CPU profiles
+
+```shell
+wzprof -sample 1 -memprofile /Users/rajiv.singh/Desktop/hello-wasm/memprofile.out ./main.wasm
+wzprof -sample 1 -cpuprofile /Users/rajiv.singh/Desktop/hello-wasm/cpuprofile.out ./main.wasm
+```
+
+: To generate a profile, you need to write the code, build it to WebAssembly, and then run the wzprof command with the path to the WebAssembly binary.
+: Install wzprof using `go install github.com/stealthrocket/wzprof/cmd/wzprof@latest`.
+: Here is an example of a simple Go program that prints "Hello wzprof!".
+: You can build this code to WebAssembly using the `GOOS=wasip1 GOARCH=wasm go build -o main.wasm main.go` command.
+: Then you can create the memory and CPU profiles using the `wzprof -sample 1 -memprofile /Users/rajiv.singh/Desktop/hello-wasm/memprofile.out ./main.wasm` and `wzprof -sample 1 -cpuprofile /Users/rajiv.singh/Desktop/hello-wasm/cpuprofile.out ./main.wasm` commands.
+: The `-sample` flag specifies the number of samples to take per second, and the `-memprofile` and `-cpuprofile` flags specify the paths to the memory and CPU profiles.
+
+## Visualize the memory profile
+
+```shell
+go tool pprof -http :4001 memprofile.out
+```
+
+: So here we can see the memory profile generated by wzprof
+
+.image images/7.png 500 _
+
+: We can then use the go tool pprof command to visualize the profiles.
+: Additionally, pprof profiles the entire application, so we will see a lot of profiles when we run the above commands. We still need to initialize the Go runtime to capture the profile.
+: The Go runtime is just more Go code that runs in the same process as your code; it’s not a separate process that can be profiled independently. 
+: Therefore, we need to initialize the Go runtime to obtain the profile.
+
+## Visualize the cpu profile
+
+```shell
+go tool pprof -http :6002 cpuprofile.out
+```
+
+: this is the CPU profile generated by wzprof for hello-wasm program
+
+.image images/8.png 500 _
+
+## Future of profiling WebAssembly with wzprof
+
+- Profiling from the guest, through host functions, down to the kernel syscalls
+- eBPF cross paths with WebAssembly
+- Profiling interpreted language runtimes
+
+: wzprof is a major step forward in bringing the capabilities of Go pprof to any programming language compiling to WebAssembly.
+: Could profiling be done in-depth from the guest, through calls to host functions, down to the kernel syscalls — and will this be where native profilers using pprof or eBPF cross paths with WebAssembly.
+: Yeah lot fo exiciting stuff and these are some of the many opportunities we are excited about, as we continue to explore the possibilities unlocked by building software with WebAssembly.
+: As for next steps, we are looking at how to enable profiling for interpreted language runtimes like Python.
+
+.image images/9.png 300 _
+
+: So thats the end thank you so much for listening, and we're happy to take any questions if you have any.
