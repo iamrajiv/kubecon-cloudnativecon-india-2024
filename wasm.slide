@@ -15,6 +15,7 @@ Naman Lakhwani
 - **Profiling with pprof**
 - **What is WebAssembly?**
 - **Profiling WebAssembly with wzprof**
+- **How profiling happens for a application?**
 - **CPU and Memory profiling with wzprof**
 - **Generate profilers using wzprof**
 - **Visualize the memory profile**
