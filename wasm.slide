@@ -57,8 +57,6 @@ Naman Lakhwani
 - **Google Summer of Code** and **Linux Foundation** mentee
 - **IIIT Gwalior**
 
-: My name is Naman.
-
 .image images/naman.jpg 250 _
 
 ## What is Go?
@@ -106,7 +104,7 @@ Naman Lakhwani
 - Can be used to profile CPU, memory, block profiling, and goroutine profiling
 - WebAssembly eases cross-language profiling
 
-: so lets go get into profiling with pprof.
+: So lets go get into profiling with pprof.
 : Performance profiling is a powerful tool for developers, with a history dating back to 1970 when the first tool, prof, was created for Unix.
 : Tools like Linux perf have provided profiling solutions since 2009, yet some modern programming languages still lack quality tools for gathering performance profiles.
 : Instrumenting observability is crucial, whether for investigating memory leaks or reducing an application’s computational footprint, and is often a significant part of the optimization process.
