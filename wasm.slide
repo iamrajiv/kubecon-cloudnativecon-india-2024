@@ -1,4 +1,5 @@
 # WebAssembly Profiling with pprof and wzprof
+
 11th December 2024
 Tags: go, pprof, wzprof, wasm
 Summary:
@@ -22,11 +23,12 @@ Naman Lakhwani
 - **Visualize the cpu profile**
 - **Future of profiling WebAssembly with wzprof**
 
+: We're so excited to be here with you to talk about Go, WebAssembly, and profiling.
 : So this is the agend for today so we will cover all these topics in this talk.
 : We use Go every day, but we know that maybe not everyone does, so we'll start with a quick presentation on what Go is.
 : Then we'll jump into whats is WebAssembly and how it's used in Go applications.
 : Than we will talk about the main topic i.e. profiling and how we can use wzprof to profile WebAssembly applications.
-: Than we'll show you how to do CPU and Memory profiling with wzprof.
+: Than we'll show you how to do CPU and Memory profiling with wzprof and how it works internally.
 : And finally, we'll talk about the future of profiling WebAssembly with wzprof and others.
 
 ## Speaker - Rajiv Ranjan Singh
@@ -34,17 +36,18 @@ Naman Lakhwani
 .link x.com/therajiv
 
 - Software Engineer at **A.P. Moller - Maersk**
-- Graduated in 2022 from **JSS Academy of Technical Education, Bengaluru, India**
+- Graduated in 2022 from **JSSATE, Bengaluru, India**
 - **Google Summer of Code** 2024, 2023, and 2022 **LFX Mentorship** 2021, and **Google Season of Docs** 2021, and 2020
+- Mentored in GSoC 2023, and GSoC 2024 with Jenkins\*\*
 - Previously worked with **Lummo, redBus, and Economize**
 
-: My name is Rajiv. I'm originally from Bihar, India, and currently work as a Software Engineer at A.P. Moller - Maersk in the Platform Engineering team in Bengaluru, India.
-: I graduated in 2022 from JSS Academy of Technical Education, Bengaluru, India, with a degree in Information Science and Engineering.
+: My name is Rajiv. I'm originally from Bihar, India, and currently work as a Software Engineer JL3 at A.P. Moller - Maersk in the Platform Engineering team in Bengaluru, India.
+: I graduated in 2022 from JSSATE, Bengaluru, India.
 : I started working with Go in 2020 when I was selected for Google Season of Docs with gRPC-Gateway.
 : I am an open-source enthusiast and have contributed to various open-source projects and programs like Google Season of Docs, LFX Mentorship, and Google Summer of Code.
-: Currently I am mentoring in GSoC 2024 with Jenkins.
+: Also, I have mentored in GSoC 2023, and GSoC 2024 with Jenkins.
 : I have previously worked with Lummo, redBus, and Economize.
-: I'm here today to talk about Go, WebAssembly, and how we can profile WebAssembly applications using pprof and wzprof.
+: I'm here today with Naman, do you want to tell us a bit about yourself?
 
 .image images/rajiv.jpg 250 _
 
@@ -136,7 +139,7 @@ Naman Lakhwani
 : For example, you can write a plugin in Rust, compile it to WebAssembly, and embed it in a Go application its just like a shared library.
 : WebAssembly runtimes also offer fairly strong sandboxing, so in some case it even allows running modules from untrusted sources.
 : However, for these capabilities to work, there needs to be common interfaces that all runtimes and compilers agree upon, and that's what the WebAssembly System Interface is.
-: wasmimport directive is used to  imports function to WebAssembly module and wasmexport directive is used to export function from WebAssembly module.
+: wasmimport directive is used to imports function to WebAssembly module and wasmexport directive is used to export function from WebAssembly module.
 
 .image images/4.png 300 _
 
@@ -234,7 +237,7 @@ go tool pprof -http :4001 memprofile.out
 
 : We can then use the go tool pprof command to visualize the profiles.
 : Additionally, pprof profiles the entire application, so we will see a lot of profiles when we run the above commands. We still need to initialize the Go runtime to capture the profile.
-: The Go runtime is just more Go code that runs in the same process as your code; it’s not a separate process that can be profiled independently. 
+: The Go runtime is just more Go code that runs in the same process as your code; it’s not a separate process that can be profiled independently.
 : Therefore, we need to initialize the Go runtime to obtain the profile.
 
 ## Visualize the cpu profile
