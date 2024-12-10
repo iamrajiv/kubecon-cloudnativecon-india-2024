@@ -38,7 +38,7 @@ Naman Lakhwani
 - Software Engineer at **A.P. Moller - Maersk**
 - Graduated in 2022 from **JSSATE, Bengaluru, India**
 - **Google Summer of Code** 2024, 2023, and 2022 **LFX Mentorship** 2021, and **Google Season of Docs** 2021, and 2020
-- Mentored in GSoC 2023, and GSoC 2024 with Jenkins\*\*
+- Mentored in GSoC 2023, and GSoC 2024 with **Jenkins**
 - Previously worked with **Lummo, redBus, and Economize**
 
 : My name is Rajiv. I'm originally from Bihar, India, and currently work as a Software Engineer JL3 at A.P. Moller - Maersk in the Platform Engineering team in Bengaluru, India.
@@ -112,7 +112,7 @@ Naman Lakhwani
 : Performance profiling is a powerful tool for developers, with a history dating back to 1970 when the first tool, prof, was created for Unix.
 : Tools like Linux perf have provided profiling solutions since 2009, yet some modern programming languages still lack quality tools for gathering performance profiles.
 : Instrumenting observability is crucial, whether for investigating memory leaks or reducing an application’s computational footprint, and is often a significant part of the optimization process.
-: so basically, pprof is a tool for visualization and analysis of profiling data.
+: So basically, pprof is a tool for visualization and analysis of profiling data.
 : The package pprof serves via its HTTP server runtime profiling data in the format expected by the pprof visualization tool.
 : Block profiling is detects goroutines that are blocked on synchronization primitives like mutexes, helping identify concurrency issues.
 : Goroutine profiling is used to understand the state of the goroutines in the application.
@@ -133,7 +133,7 @@ Naman Lakhwani
 
 : WebAssembly originally started as a browser technology.
 : It is bytecode that is executed by a virtual machine, also referred to as the host or runtime. Here is I am refering to stack-based virtual machines.
-: By default, WebAssembly is purely just memory and compute, but the runtime can expose functions for the guest module to import, those are called host functions.
+: By default, WebAssembly is purely just memory and compute. However, host environments like runtimes and browsers can extend Wasm’s capabilities by exposing functions for the guest module to import.
 : In recent years, standalone runtimes emerged like wazero, wasmtime, wasmer, or wasmedge.
 : While these runtimes can be used as-is to run programs compiled to WebAssembly, they can also be embedded into existing applications.
 : For example, you can write a plugin in Rust, compile it to WebAssembly, and embed it in a Go application its just like a shared library.
