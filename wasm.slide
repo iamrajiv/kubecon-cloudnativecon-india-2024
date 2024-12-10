@@ -1,5 +1,4 @@
 # WebAssembly Profiling with pprof and wzprof
-
 11th December 2024
 Tags: go, pprof, wzprof, wasm
 Summary:
@@ -7,7 +6,7 @@ Summary:
 Rajiv Ranjan Singh
 Naman Lakhwani
 
-: Hey hi everyone, I am excited to be here with you to talk about Go, WebAssembly, and how we can profile WebAssembly applications using pprof and wzprof.
+: Hey hi everyone, We are excited to be here with you to talk about Go, WebAssembly, and how we can profile WebAssembly applications using pprof and wzprof.
 
 ## Agenda
 
@@ -22,13 +21,13 @@ Naman Lakhwani
 - **Visualize the memory profile**
 - **Visualize the cpu profile**
 - **Future of profiling WebAssembly with wzprof**
+- **References**
 
-: We're so excited to be here with you to talk about Go, WebAssembly, and profiling.
 : So this is the agend for today so we will cover all these topics in this talk.
 : We use Go every day, but we know that maybe not everyone does, so we'll start with a quick presentation on what Go is.
-: Then we'll jump into whats is WebAssembly and how it's used in Go applications.
-: Than we will talk about the main topic i.e. profiling and how we can use wzprof to profile WebAssembly applications.
-: Than we'll show you how to do CPU and Memory profiling with wzprof and how it works internally.
+: Then we'll jump into whats is profiling and how we can use pprof to profile Go applications.
+: Than we will talk about the main topic i.e. how we can use wzprof to profile WebAssembly applications.
+: Than we'll show you how to do CPU and memory profiling with wzprof and how it works internally.
 : And finally, we'll talk about the future of profiling WebAssembly with wzprof and others.
 
 ## Speaker - Rajiv Ranjan Singh
@@ -262,3 +261,10 @@ go tool pprof -http :6002 cpuprofile.out
 .image images/10.png 300 _
 
 : So thats the end thank you so much for listening, and we're happy to take any questions if you have any.
+
+## References
+
+- [https://golang.org](https://golang.org)
+- [https://dispatch.run/blog/performance-in-the-spotlight-webassembly-profiling-for-everyone](https://dispatch.run/blog/performance-in-the-spotlight-webassembly-profiling-for-everyone)
+- [https://kubecon-cloudnativecon-india-2024.fly.dev](https://kubecon-cloudnativecon-india-2024.fly.dev)
+- [https://github.com/iamrajiv/kubecon-cloudnativecon-india-2024](https://github.com/iamrajiv/kubecon-cloudnativecon-india-2024)
