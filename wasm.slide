@@ -264,7 +264,9 @@ go tool pprof -http :6002 cpuprofile.out
 
 ## References
 
-- [https://golang.org](https://golang.org)
+- [https://pkg.go.dev/net/http/pprof](https://pkg.go.dev/net/http/pprof)
 - [https://dispatch.run/blog/performance-in-the-spotlight-webassembly-profiling-for-everyone](https://dispatch.run/blog/performance-in-the-spotlight-webassembly-profiling-for-everyone)
 - [https://kubecon-cloudnativecon-india-2024.fly.dev](https://kubecon-cloudnativecon-india-2024.fly.dev)
 - [https://github.com/iamrajiv/kubecon-cloudnativecon-india-2024](https://github.com/iamrajiv/kubecon-cloudnativecon-india-2024)
+
+.image images/11.png 300 _
