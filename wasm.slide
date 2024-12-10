@@ -260,10 +260,9 @@ go tool pprof -http :6002 cpuprofile.out
 : TinyGo recently added support for WASI Preview 2 (WASI P2), allowing developers to write idiomatic Go code and compile it to the wasip2 target.
 : Yeah lot of exiciting stuff and these are some of the many opportunities we are excited about, as we continue to explore the possibilities unlocked by building software with WebAssembly.
 : As for next steps, we are looking at how to enable profiling for interpreted language runtimes like Python.
+: So yeah that's the future of profiling WebAssembly with wzprof and WebAssembly in general.
 
 .image images/10.png 300 _
-
-: So thats the end thank you so much for listening, and we're happy to take any questions if you have any.
 
 ## References
 
@@ -271,5 +270,8 @@ go tool pprof -http :6002 cpuprofile.out
 - [https://dispatch.run/blog/performance-in-the-spotlight-webassembly-profiling-for-everyone](https://dispatch.run/blog/performance-in-the-spotlight-webassembly-profiling-for-everyone)
 - [https://kubecon-cloudnativecon-india-2024.fly.dev](https://kubecon-cloudnativecon-india-2024.fly.dev)
 - [https://github.com/iamrajiv/kubecon-cloudnativecon-india-2024](https://github.com/iamrajiv/kubecon-cloudnativecon-india-2024)
+
+: Here are some references that we used in this talk.
+: So thats the end thank you so much for listening, and we're happy to take any questions if you have any.
 
 .image images/11.png 300 _
