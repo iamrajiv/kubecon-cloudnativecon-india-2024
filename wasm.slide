@@ -252,11 +252,12 @@ go tool pprof -http :6002 cpuprofile.out
 
 - Profiling from the guest, through host functions, down to the kernel syscalls
 - eBPF cross paths with WebAssembly
+- TinyGo support for WASI Preview 2
 - Profiling interpreted language runtimes
 
 : wzprof is a major step forward in bringing the capabilities of Go pprof to any programming language compiling to WebAssembly.
 : Could profiling be done in-depth from the guest, through calls to host functions, down to the kernel syscalls — and will this be where native profilers using pprof or eBPF cross paths with WebAssembly.
-: WebAssembly preview 2 is out, and it brings a lot of exciting stuff.
+: TinyGo recently added support for WASI Preview 2 (WASI P2), allowing developers to write idiomatic Go code and compile it to the wasip2 target.
 : Yeah lot of exiciting stuff and these are some of the many opportunities we are excited about, as we continue to explore the possibilities unlocked by building software with WebAssembly.
 : As for next steps, we are looking at how to enable profiling for interpreted language runtimes like Python.
 
