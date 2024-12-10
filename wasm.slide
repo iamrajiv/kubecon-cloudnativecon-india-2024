@@ -64,11 +64,11 @@ Naman Lakhwani
 
 ## What is Go?
 
-- Multi-paradigm programming language
-- Memory-safe with automated memory management
+- Statically typed programming language
+- Simplicity and Readability
+- Concurrency
+- Performance
 - Portable, compiles to a multitude of platforms
-- The go program is the entrypoint to the Go toolchain
-- It standardizes how developers build and maintain their applications
 - Provides tooling for building, profiling, testing, and managing dependencies
 
 .image images/1.png 200 _
@@ -76,26 +76,27 @@ Naman Lakhwani
 : So let's start with What is Go?
 : Go is programing language developed by Google in 2007 and released in 2009.
 : Maintained by Google as an open-source project.
-: Go is a multi-paradigm programming language oriented towards the needs of developing secure, production-quality applications.
-: Go has a rich standard library, and advanced concurrency primitives built into the language like goroutines and channels.
+: It is known for it's built-in support for lightweight threads known as goroutines which makes it ideal for building concurrent and scalable systems.
+: It Compiles directly to machine code for excellent performance similar to C/C++.
 : And it is also very portable, it compiles to a multitude of targets, including WebAssembly via js and wasip1 ports.
-: The go program is the entrypoint of the Go toolchain.
-: It standardizes how developers build and maintain their applications.
-: It provides a lot of standard tooling for building, managing dependencies, formatting and testing the code, but also some more advanced constructs like a builtin CPU and memory profiler.
-: I'm mentioning all of this because when using Go, the entire toolchain is available when compiling to WebAssembly.
+: Go provides a lot of standard tooling for building, managing dependencies, formatting and testing the code, but also some more advanced constructs like a builtin CPU and memory profiler.
+: I'm sharing all of this because when using Go, the entire toolchain is available when compiling to WebAssembly.
 
 ## What is Profiling?
 
-- Profiling is a form of dynamic program analysis
-- Used to measure the space (memory) or time complexity of a program
-- Profiling is used to optimize the program
-- Profiling can be done at different levels
+- Profiling is the analysis of a program's runtime behavior
+- CPU profiling, Memory Profiling, Goroutine Profiling
+- Helps in Performance Optimization, Resource Management, Debugging Complex Issues
+- Helps in delivering Better User Experience
 - Profiling can be done at the application level, system level, or even at the hardware level
 
-: Profiling is a form of dynamic program analysis that measures the space (memory) or time complexity of a program.
-: Profiling is used to optimize the program, and it can be done at different levels.
-: Profiling can be done at the application level, system level, or even at the hardware level.
+: Profiling provides insights into how a program behaves during runtime, enabling developers to optimize and debug their code effectively.
+: Profiling is the process of analysing how a program runs to find out what slows it down or uses too many resources, like CPU, memory, or disk. The goal is to spot and fix these problems to make the program run better.
+: There are variuos types of profiling CPU profiling, Memory Profiling, Goroutine Profiling
+: Helps locate slow parts of the code and optimize them for better performance
+: This ensures efficient use of CPU, memory, and other system resources.
 : Profiling can be used to identify bottlenecks in the code, memory leaks, or other performance issues.
+: Profiling can be done at the application level, system level, or even at the hardware level.
 
 .image images/2.png 200 _
 
@@ -107,16 +108,15 @@ Naman Lakhwani
 - Can be used to profile CPU, memory, block profiling, and goroutine profiling
 - WebAssembly eases cross-language profiling
 
-: So lets go get into profiling with pprof.
+: So lets see about profiling with pprof.
+: pprof stands for performance profiler and is the inbuilt profiling tool in golang
 : Performance profiling is a powerful tool for developers, with a history dating back to 1970 when the first tool, prof, was created for Unix.
-: Tools like Linux perf have provided profiling solutions since 2009, yet some modern programming languages still lack quality tools for gathering performance profiles.
+: Tools like Linux perf have provided profiling solutions since 2009, yet some modern programming languages lack quality tools for gathering performance profiles.
 : Instrumenting observability is crucial, whether for investigating memory leaks or reducing an application’s computational footprint, and is often a significant part of the optimization process.
-: So basically, pprof is a tool for visualization and analysis of profiling data.
-: The package pprof serves via its HTTP server runtime profiling data in the format expected by the pprof visualization tool.
-: Block profiling is detects goroutines that are blocked on synchronization primitives like mutexes, helping identify concurrency issues.
+: so basically, pprof is a tool for visualization and analysis of profiling data.
+: The package pprof serves via its HTTP server runtime, profiles data in the format expected by the pprof visualization tool.
 : Goroutine profiling is used to understand the state of the goroutines in the application.
-: We can use command line flags to enable the profiling and then use the pprof tool to visualize the data.
-: We can use the profiling endpoints provided by the pprof package and even we can use the pprof tool to collect the profile data.
+: We can use pprof tool to enable profiling and then use the same to visualize the data.
 : Like, developing profilers that work across programming languages is challenging, but WebAssembly offers a solution.
 : WebAssembly, as a compilation target for languages like Go, Rust, Kotlin, and C, and with the ability to run server workloads via tools like wazero or wasmtime, provides a versatile platform.
 
@@ -234,8 +234,8 @@ go tool pprof -http :4001 memprofile.out
 .image images/8.png 500 _
 
 : We can then use the go tool pprof command to visualize the profiles.
-: Additionally, pprof profiles the entire application, so we will see a lot of profiles when we run the above commands. We still need to initialize the Go runtime to capture the profile.
-: The Go runtime is just more Go code that runs in the same process as your code; it’s not a separate process that can be profiled independently.
+: Additionally, pprof profiles the entire application, so we will see a lot of profiles when we run the above commands.
+: The Go runtime is just more Go code that runs in the same process as your code; it’s not a separate process that can be profiled independently. 
 : Therefore, we need to initialize the Go runtime to obtain the profile.
 
 ## Visualize the cpu profile
