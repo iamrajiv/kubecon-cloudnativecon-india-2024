@@ -92,8 +92,8 @@ Naman Lakhwani
 
 : Profiling provides insights into how a program behaves during runtime, enabling developers to optimize and debug their code effectively.
 : Profiling is the process of analysing how a program runs to find out what slows it down or uses too many resources, like CPU, memory, or disk. The goal is to spot and fix these problems to make the program run better.
-: There are variuos types of profiling CPU profiling, Memory Profiling, Goroutine Profiling
-: Helps locate slow parts of the code and optimize them for better performance
+: There are variuos types of profiling CPU profiling, Memory Profiling, Goroutine Profiling.
+: Helps locate slow parts of the code and optimize them for better performance.
 : This ensures efficient use of CPU, memory, and other system resources.
 : Profiling can be used to identify bottlenecks in the code, memory leaks, or other performance issues.
 : Profiling can be done at the application level, system level, or even at the hardware level.
@@ -109,11 +109,11 @@ Naman Lakhwani
 - WebAssembly eases cross-language profiling
 
 : So lets see about profiling with pprof.
-: pprof stands for performance profiler and is the inbuilt profiling tool in golang
+: pprof stands for performance profiler and is the inbuilt profiling tool in golang.
 : Performance profiling is a powerful tool for developers, with a history dating back to 1970 when the first tool, prof, was created for Unix.
 : Tools like Linux perf have provided profiling solutions since 2009, yet some modern programming languages lack quality tools for gathering performance profiles.
 : Instrumenting observability is crucial, whether for investigating memory leaks or reducing an application’s computational footprint, and is often a significant part of the optimization process.
-: so basically, pprof is a tool for visualization and analysis of profiling data.
+: So basically, pprof is a tool for visualization and analysis of profiling data.
 : The package pprof serves via its HTTP server runtime, profiles data in the format expected by the pprof visualization tool.
 : Goroutine profiling is used to understand the state of the goroutines in the application.
 : We can use pprof tool to enable profiling and then use the same to visualize the data.
@@ -235,7 +235,7 @@ go tool pprof -http :4001 memprofile.out
 
 : We can then use the go tool pprof command to visualize the profiles.
 : Additionally, pprof profiles the entire application, so we will see a lot of profiles when we run the above commands.
-: The Go runtime is just more Go code that runs in the same process as your code; it’s not a separate process that can be profiled independently. 
+: The Go runtime is just more Go code that runs in the same process as your code; it’s not a separate process that can be profiled independently.
 : Therefore, we need to initialize the Go runtime to obtain the profile.
 
 ## Visualize the cpu profile
