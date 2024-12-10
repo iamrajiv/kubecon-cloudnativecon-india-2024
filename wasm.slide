@@ -167,15 +167,13 @@ Naman Lakhwani
 - Step 1: Recording Stack Traces
 - Step 2: Resolving Stack Traces
 
-: Profiling begins by capturing stack traces during application execution.
-: A stack trace shows the sequence of function calls at specific moments.
-: WebAssembly runtimes are ideal for this.
-: They execute guest application code, allowing instrumentation and hook injection.
-
+: Profiling begins by capturing stack traces during application execution. A stack trace shows the sequence of function calls at specific moments.
+: WebAssembly runtimes are well-positioned to collect this data.
+: Since they execute the guest code, they can automatically inject instrumentation and install hooks to record everything happening in the guest.
+: Additionally, they can inspect program memory, providing insights into its utilization and helping detect memory leaks.
 : Raw stack traces are resolved into meaningful insights using debug symbols.
-: WebAssembly modules include DWARF sections:
-: DWARF maps compiled code to original source code.
-: This provides line-level profiling, identifying where allocations or bottlenecks occur.
+: To resolve stack traces using debug symbols, WebAssembly modules carry DWARF sections, a debugging data format that contains detailed information about the program’s structure.
+: DWARF maps compiled code to the original source code, enabling line-level profiling to identify where allocations or bottlenecks occur.
 
 .image images/6.png 300 _
 
